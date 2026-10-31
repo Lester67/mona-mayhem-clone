@@ -1,62 +1,84 @@
-<!-- l10n-sync: source-file="03-agent-mode.md" -->
-# Parte 3: Agent Mode — Construir el Juego
+<!-- l10n-sync: source-file="workshop/03-agent-mode.md" -->
+# Parte 3: Construir el juego con flujos agentic
 
 ---
 
-Agent Mode permite a Copilot planificar e implementar cambios de forma autónoma en múltiples archivos. En lugar de escribir código línea por línea, describes lo que quieres y Copilot determina qué archivos crear o modificar, luego implementa todo de principio a fin.
+Esta parte es donde Copilot pasa de planificador a implementador. En lugar de escribir código línea por línea, describes lo que quieres y dejas que Copilot lleve a cabo el trabajo a través de los archivos que necesite cambiar.
 
-## Tarea 1: Conecta la Batalla
+## Tarea 1: Conecta la batalla
 
-1. Cambia a modo **Agent** en Copilot Chat (selecciona "Agent" en el menú desplegable de modo).
+<!-- track:vscode:start -->
+1. Cambia al modo **Agent** en Copilot Chat.
+2. Introduce este prompt:
+<!-- track:vscode:end -->
 
-2. Ingresa este prompt:
+<!-- track:cli:start -->
+1. Devuelve Copilot CLI a su flujo habitual de codificación (o sigue en autopilot si quieres que Copilot siga avanzando hasta que lo detengas).
+2. Menciona el archivo de la página si te resulta útil: `@src/pages/index.astro`
+3. Introduce este prompt:
+<!-- track:cli:end -->
 
-   > Add client-side JavaScript to the battle page that:
-   > 1. When the Battle button is clicked, gets both usernames from the inputs
-   > 2. Validates both are filled (show error if not)
-   > 3. Fetches both users' contribution data in parallel from our API
-   > 4. Renders contribution graphs as colored grids — each day is a colored square using GitHub's color palette
-   > 5. Shows a VS badge between the two users
-   > 6. Displays username, total contributions, and date range for each user
-   > 7. Handles loading states and errors
-   > 8. Also triggers on Enter key in input fields.
+   > Añade JavaScript del lado del cliente a la página de batalla que:
+   > 1. Cuando se hace clic en el botón Battle, obtenga ambos nombres de usuario de los inputs.
+   > 2. Valide que ambos estén rellenos (muestra un error si no lo están).
+   > 3. Obtenga los datos de contribución de ambos usuarios en paralelo desde nuestra API.
+   > 4. Renderice los gráficos de contribución como cuadrículas coloreadas: cada día es un cuadrado con el color de la paleta de GitHub.
+   > 5. Muestre una insignia VS entre los dos usuarios.
+   > 6. Muestra el nombre de usuario, el total de contribuciones y el rango de fechas para cada usuario.
+   > 7. Maneje estados de carga y errores.
+   > 8. También se active con la tecla Enter en los campos de entrada.
+   > 9. La UI es simple por ahora y ya está esbozada.
    >
-   > Use TypeScript interfaces for the contribution data structure.
+   > Usa interfaces TypeScript para la estructura de datos de contribución.
 
-3. Deja que Agent Mode trabaje en la implementación a través de `index.astro`. Observa cómo planifica su enfoque, identifica los archivos que necesita modificar y escribe el código.
+<!-- track:vscode:start -->
+3. Deja que Agent Mode trabaje en la implementación a través de `index.astro`.
+4. Revisa los cambios propuestos en la vista de diff antes de aceptarlos.
+<!-- track:vscode:end -->
 
-4. Revisa los cambios propuestos en la vista de diferencias antes de aceptarlos.
+<!-- track:cli:start -->
+4. Deja que Copilot CLI trabaje en la implementación a través de `src/pages/index.astro`.
+5. Usa `/diff` para inspeccionar los cambios generados y luego aprobalos.
+<!-- track:cli:end -->
 
-## Tarea 2: Prueba la Batalla
+## Tarea 2: Prueba la batalla
 
-1. Ingresa `octocat` y `torvalds` como los dos nombres de usuario, luego haz clic en **Battle**.
-2. Deberías ver ambos gráficos de contribuciones renderizados lado a lado con cuadrículas de colores.
+> **⚠️ ¿No ves cambios?** Si la página de batalla no se ha actualizado, detén el servidor de desarrollo (`Ctrl+C`) y reinícialo con `npm run dev`, luego refresca el navegador.
+
+1. Introduce `octocat` y `torvalds` como los dos nombres de usuario y luego haz clic en **Battle**.
+2. Deberías ver ambos gráficos de contribución renderizados uno al lado del otro con cuadrículas de colores.
 3. Prueba los casos de error:
-   - Deja uno o ambos campos vacíos y haz clic en Battle — deberías ver un error de validación.
-   - Ingresa un nombre de usuario inválido — la app debería mostrar un error de la API.
-4. Prueba presionar **Enter** en cualquier campo de entrada — debería activar la batalla igual que al hacer clic en el botón.
+   - Deja uno o ambos campos vacíos y haz clic en Battle: deberías ver un error de validación.
+   - Introduce un nombre de usuario no válido: la app debería mostrar un error de la API.
+4. Prueba a pulsar **Enter** en cualquiera de los campos: debería desencadenar la batalla igual que el botón.
 
-## Tarea 3: Itera con Agent
+## Tarea 3: Itera con Copilot
 
-Si algo no está del todo bien, dale retroalimentación a Agent directamente en el chat. Por ejemplo:
+Si algo no está del todo bien, da a Copilot comentarios de seguimiento directamente. Por ejemplo:
 
-- *"The contribution squares are too large, make them 12x12px"*
-- *"Add a hover tooltip showing the date and contribution count"*
-- *"The loading state needs a pulse animation"*
+- *"Las casillas de contribución son demasiado grandes, hazlas de 12x12px"*
+- *"Añade un tooltip al pasar el ratón con la fecha y el número de contribuciones"*
+- *"El estado de carga necesita una animación de pulso"*
 
-Agent Mode maneja cambios en múltiples archivos e iteraciones de forma natural. Cada prompt de seguimiento se basa en el contexto previo, por lo que puedes refinar la implementación de forma incremental sin empezar de cero.
+<!-- track:vscode:start -->
+Agent Mode maneja cambios y iteraciones en varios archivos de forma natural. Cada prompt de seguimiento se basa en la conversación anterior, así que puedes refinar la implementación de forma incremental sin empezar de cero.
+<!-- track:vscode:end -->
 
-## Consejos para Agent Mode
+<!-- track:cli:start -->
+Las sesiones de Copilot CLI mantienen el historial, así que cada prompt de seguimiento se basa en el anterior. Usa `/session` o `/context` si quieres inspeccionar lo que Copilot está llevando adelante, y `/review` tras una iteración más grande si quieres una pasada extra para bugs o pulido.
+<!-- track:cli:end -->
 
-- **Sé específico sobre lo que quieres** — requisitos claros producen mejores resultados.
-- **Divide tareas grandes en prompts más pequeños** si Agent se desvía.
-- **Revisa los cambios antes de aceptar** — usa la vista de diferencias para entender qué se modificó.
-- **Si los resultados no son perfectos, da retroalimentación e itera** — Agent aprende de tus correcciones dentro de la conversación.
+## Consejos para esta parte
 
-## ✅ Parte 3 Completa
+- **Sé específico sobre lo que quieres**: unos requisitos claros generan mejores resultados.
+- **Divide tareas grandes en prompts más pequeños** si Copilot se desvía del rumbo.
+- **Revisa los cambios antes de aceptarlos**: es más rápido inspeccionar el código generado que reescribirlo después.
+- **Prueba la app inmediatamente después de cada pasada de implementación** para mantener los problemas acotados.
+
+## ✅ Parte 3 completada
 
 Has aprendido a:
 
-- Usar **Agent Mode** para implementaciones complejas en múltiples archivos
-- **Iterar sobre los resultados** con retroalimentación dirigida
-- Manejar el **ciclo de vida completo de una funcionalidad** — desde la implementación hasta las pruebas y el refinamiento — en una sola conversación
+- Usar Copilot para **trabajos de implementación multiarchivo**
+- **Iterar sobre los resultados** con prompts de seguimiento enfocados
+- Manejar el **bucle completo de una funcionalidad**: implementación, revisión, pruebas y refinamiento

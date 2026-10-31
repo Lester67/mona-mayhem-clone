@@ -1,74 +1,83 @@
-<!-- l10n-sync: source-file="04-design-vibes.md" -->
-# Parte 4: Tematización Orientada al Diseño
+<!-- l10n-sync: source-file="workshop/04-design-vibes.md" -->
+# Parte 4: Tematización centrada en el diseño
 
 ---
 
-En esta parte, usarás **Plan Mode** para diseñar una transformación de tema completa, y luego **Agent Mode** para implementarla. Esto es desarrollo orientado al diseño — comienza con la visión, itera sobre los elementos visuales y deja que Copilot se encargue del trabajo pesado de CSS.
+En esta parte usarás Copilot's planning and implementation loops to design a comprehensive theme transformation. This is design-first development — start with the vision, iterate on the visuals, and let Copilot handle the CSS heavy lifting.
 
-## Tarea 1: Planifica el Tema Retro
+## Tarea 1: Planifica el tema retro
 
-Cambia a modo **Plan** en GitHub Copilot.
+<!-- track:vscode:start -->
+Cambia al modo **Plan** en GitHub Copilot Chat.
+<!-- track:vscode:end -->
 
-Ingresa este prompt:
+<!-- track:cli:start -->
+Usa `/plan` en GitHub Copilot CLI, o pulsa **Shift+Tab** hasta que el modo plan esté activo.
+<!-- track:cli:end -->
 
-> I want to transform this page into a full retro arcade experience. Plan a comprehensive visual overhaul that includes: CRT scanline effects on the background, neon glow on the title that pulses like a neon sign, animated VS badge with gradient color shifts, shine/shimmer overlay on the user result cards, float-in animations for input fields, color-shifting loading text between green and purple, and hover glow effects on contribution squares. Keep the dark background (#0a0a1a) with green (#5fed83) and purple (#8a2be2) accent colors.
+Introduce este prompt:
 
-Copilot generará un plan detallado de implementación cubriendo todos los efectos visuales. **No lo aceptes de inmediato** — revisa el plan e itera:
+> Quiero transformar esta página en una experiencia retro arcade completa. Haz un rediseño visual completo que incluya: efectos de líneas CRT en el fondo, brillo neón en el título que palpite como un letrero de neón, insignia VS animada con cambios de gradiente, superposición de brillo/en brillante en las tarjetas de resultados, animaciones de entrada para los campos, texto de carga con cambio de color entre verde y morado, y efectos de brillo al pasar el cursor sobre los cuadrados de contribución. Mantén el fondo oscuro (`#0a0a1a`) con acentos verdes (`#5fed83`) y morados (`#8a2be2`). Usa un tema oscuro con la fuente retro de arcade Press Start 2P de Google Fonts.
 
-- Sugiere ajustes en la velocidad de las animaciones (por ejemplo, "Make the neon pulse slower, around 3 seconds")
-- Pregunta sobre efectos específicos (por ejemplo, "How will the shimmer overlay work on the cards?")
+Copilot generará un plan detallado de implementación que cubra todos los efectos visuales. **No lo aceptes de inmediato**: revisa el plan e itera:
+
+- Sugiere ajustes en la velocidad de las animaciones (por ejemplo, *"Haz que el pulso neón sea más lento, alrededor de 3 segundos"*)
+- Pregunta por efectos concretos (por ejemplo, *"¿Cómo funcionará la superposición de brillo en las tarjetas?"*)
 - Solicita cambios en el enfoque si algo no te convence
 
-Una vez que estés satisfecho con el plan, deja que Copilot proceda con la implementación.
+## Tarea 2: Implementa el tema
 
-## Tarea 2: Implementa el Tema
+Cuando estés satisfecho con el plan, dile a Copilot que lo implemente.
 
-Cambia a modo **Agent** y pide a Copilot que implemente el plan:
+> Implementa el plan del tema retro arcade que acabamos de diseñar.
 
-> Implement the retro arcade theme plan we just designed.
+Copilot añadirá varias animaciones CSS, pseudo-elementos y transiciones a tu hoja de estilos. Esto puede incluir:
 
-Copilot agregará múltiples animaciones CSS, pseudo-elementos y transiciones en tu hoja de estilos. Esto puede incluir:
-
-- `@keyframes` para scanlines, pulso neón, shimmer y efectos de aparición flotante
+- `@keyframes` para líneas CRT, pulso neón, brillo y efectos de entrada flotante
 - Pseudo-elementos (`::before`, `::after`) para efectos de superposición
-- CSS custom properties para los colores del tema
+- Propiedades CSS personalizadas para los colores del tema
 - Transiciones y estados hover para elementos interactivos
 
-Una vez aplicados los cambios, **revisa la vista previa en tu navegador** para ver la transformación completa al estilo retro arcade.
+<!-- track:cli:start -->
+Después de que los cambios entren, usa `/diff` para revisar los cambios de estilo antes de aprobarlos.
+<!-- track:cli:end -->
 
-## Tarea 3: Ajusta las Vibras
+## Tarea 3: Ajusta las vibas
+
+> **⚠️ ¿No ves cambios?** Si el nuevo tema o las animaciones no se muestran, detén el servidor de desarrollo (`Ctrl+C`) y reinícialo con `npm run dev`, luego haz una recarga forzada (`Ctrl+Shift+R`) en tu navegador.
 
 Mantén la vista previa del navegador abierta e itera sobre el diseño. Prueba prompts como:
 
-> The scanline effect is too strong, reduce opacity to 0.03
+> El efecto de líneas CRT es demasiado fuerte, reduce la opacidad a 0.03
 
-> Add a subtle electrical flicker to the title text
+> Añade un ligero parpadeo eléctrico al texto del título
 
-> The VS badge should pulse more dramatically
+> La insignia VS debe pulsar de forma más dramática
 
-Esto es **desarrollo orientado al diseño** — estás iterando sobre la salida visual en tiempo real. Cada prompt refina la experiencia hasta que se sienta correcta. No te conformes con "suficientemente bueno" — perfecciona las vibras hasta que la página parezca pertenecer a un gabinete arcade.
+Esto es **desarrollo centrado en el diseño**: estás iterando sobre la salida visual en tiempo real. Cada prompt refina la experiencia hasta que parece bien. No te conformes con “bastante bien”: empuja las vibras hasta que la página parezca salida de un gabinete arcade.
 
-## Tarea 4: Actualiza las Instrucciones
+## Tarea 4: Actualiza las instrucciones
 
-Las instrucciones de tu workspace deben reflejar las decisiones de diseño importantes. Pídele a Copilot:
+Tus instrucciones deben reflejar los cambios de diseño más importantes para que los siguientes prompts sigan alineados.
 
-> Add a design guide section to copilot-instructions.md describing our retro arcade theme: colors, fonts, animation style
+<!-- track:vscode:start -->
+Pregunta a Copilot Chat:
 
-Esto mantiene las interacciones futuras de Copilot consistentes con la identidad visual que has establecido. Cualquier nueva funcionalidad o componente seguirá automáticamente la estética retro arcade.
+> Añade una sección de guía de diseño a copilot-instructions.md describiendo nuestro tema retro arcade: colores, fuentes y estilo de animación
+<!-- track:vscode:end -->
 
-**Haz commit y push de tus cambios:**
+<!-- track:cli:start -->
+Pregunta a Copilot CLI:
 
-```
-git add -A
-git commit -m "Add retro arcade theme with CRT and neon effects"
-git push
-```
+> Actualiza nuestras instrucciones del repositorio con una breve guía de diseño para el tema retro arcade: colores, fuentes, estilo de animación y la regla de que la nueva UI debe mantener la estética neón.
+<!-- track:cli:end -->
 
-## ✅ Parte 4 Completa
+Haz commit de tus instrucciones actualizadas y de los cambios de diseño cuando la página tenga el aspecto correcto.
+
+## ✅ Parte 4 completada
 
 **Lo que aprendiste:**
 
-- **Plan Mode para sistemas de diseño** — esbozar una renovación visual completa antes de escribir código
-- **Iterar sobre la salida visual** — usar prompts rápidos de seguimiento para ajustar animaciones, colores y efectos
-- **Mantener las instrucciones actualizadas con decisiones de diseño** — documentar tu tema para que Copilot se mantenga consistente
-- **Flujo de trabajo de desarrollo orientado al diseño** — comenzar con la visión, implementar con IA, refinar hasta que se sienta correcto
+- Usa los flujos de planificación para esbozar un **sistema de diseño antes de la implementación**
+- **Itera sobre el resultado visual** con prompts cortos de seguimiento
+- **Actualiza las instrucciones tras decisiones importantes** para que Copilot mantenga la identidad visual de forma consistente
